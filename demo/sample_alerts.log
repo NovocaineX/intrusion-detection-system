@@ -1,0 +1,14 @@
+IDS Alert Log — Aadarsh Bonthula
+Generated: 2025-06-10 15:35:22
+======================================================================
+
+[2025-06-10 15:30:12] [SID:1001] [HIGH] SSH Brute Force Attempt | TCP 192.168.1.100:54921 → 192.168.1.10:22 | Hits: 5
+[2025-06-10 15:30:18] [SID:1001] [HIGH] SSH Brute Force Attempt | TCP 192.168.1.100:54935 → 192.168.1.10:22 | Hits: 6
+[2025-06-10 15:30:45] [SID:1004] [HIGH] ICMP Flood Detected | ICMP 10.0.0.5 → 192.168.1.10 | Hits: 20
+[2025-06-10 15:30:46] [SID:1004] [HIGH] ICMP Flood Detected | ICMP 10.0.0.5 → 192.168.1.10 | Hits: 21
+[2025-06-10 15:31:02] [SID:1008] [HIGH] SMB Attack Attempt — EternalBlue Risk | TCP 192.168.1.200:49150 → 192.168.1.10:445 | Hits: 3
+[2025-06-10 15:31:15] [SID:1003] [MED] Telnet Connection Detected — Unencrypted Protocol | TCP 192.168.1.50:33021 → 192.168.1.10:23 | Hits: 1
+[2025-06-10 15:32:00] [SID:1002] [MED] HTTP Scan / Directory Enumeration | TCP 192.168.1.77:45100 → 192.168.1.10:80 | Hits: 15
+[2025-06-10 15:33:10] [SID:1007] [MED] High Rate DNS Query — Possible Amplification | UDP 10.0.0.9:35200 → 8.8.8.8:53 | Hits: 30
+
+Total Alerts: 8
