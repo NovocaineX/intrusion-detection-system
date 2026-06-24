@@ -1,0 +1,45 @@
+# IDS Detection Rules — Developed by Aadarsh Bonthula
+# Simplified Snort-compatible rule syntax
+# Format: alert <proto> <src_ip> <src_port> -> <dst_ip> <dst_port> (msg:"..."; threshold:N; sid:N; severity:LEVEL;)
+#
+# Severity levels: HIGH | MED | LOW
+# threshold: number of hits from same source before alert fires
+# sid: unique rule identifier
+
+# ─── Brute Force Detection ───────────────────────────────────────────────────
+# SSH brute force — 5 connection attempts to port 22 triggers alert
+alert tcp any any -> any 22 (msg:"SSH Brute Force Attempt"; threshold:5; sid:1001; severity:HIGH;)
+
+# RDP brute force — repeated Remote Desktop connections
+alert tcp any any -> any 3389 (msg:"RDP Brute Force Attempt"; threshold:5; sid:1005; severity:HIGH;)
+
+# FTP login attempts — threshold low since FTP is rarely used legitimately
+alert tcp any any -> any 21 (msg:"FTP Connection Attempt"; threshold:3; sid:1006; severity:LOW;)
+
+# ─── Scanning Detection ──────────────────────────────────────────────────────
+# HTTP enumeration/scanning — high rate of connections to port 80
+alert tcp any any -> any 80 (msg:"HTTP Scan / Directory Enumeration"; threshold:15; sid:1002; severity:MED;)
+
+# HTTPS enumeration
+alert tcp any any -> any 443 (msg:"HTTPS Scan Detected"; threshold:20; sid:1009; severity:LOW;)
+
+# ─── Suspicious Protocols ────────────────────────────────────────────────────
+# Telnet — unencrypted, should not appear in modern secure environments
+alert tcp any any -> any 23 (msg:"Telnet Connection Detected — Unencrypted Protocol"; threshold:1; sid:1003; severity:MED;)
+
+# ─── Flood / DDoS Detection ──────────────────────────────────────────────────
+# ICMP flood — ping flood used in DDoS
+alert icmp any any -> any any (msg:"ICMP Flood Detected"; threshold:20; sid:1004; severity:HIGH;)
+
+# DNS amplification — high rate of UDP queries to port 53
+alert udp any any -> any 53 (msg:"High Rate DNS Query — Possible Amplification"; threshold:30; sid:1007; severity:MED;)
+
+# ─── Known Exploit Vectors ───────────────────────────────────────────────────
+# SMB — EternalBlue / WannaCry targets port 445 (Ref: Chapter 5.2 Metasploit)
+alert tcp any any -> any 445 (msg:"SMB Attack Attempt — EternalBlue Risk"; threshold:3; sid:1008; severity:HIGH;)
+
+# MySQL exposure — database port accessible from network
+alert tcp any any -> any 3306 (msg:"MySQL Direct Access Attempt"; threshold:2; sid:1010; severity:HIGH;)
+
+# MongoDB exposure — no-auth MongoDB instances
+alert tcp any any -> any 27017 (msg:"MongoDB Access Attempt"; threshold:2; sid:1011; severity:HIGH;)
